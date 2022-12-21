@@ -1,12 +1,8 @@
 'use strict';
 /*
-const getRandomNumber = () => {
-  return Math.ceil(Math.random() * 100);
-};
+const getRandomNumber = () => Math.ceil(Math.random() * 100);
 
-const isNumber = (num) => {
-  return !isNaN(parseFloat(num)) && isFinite(num);
-};
+const isNumber = (num) => !isNaN(parseFloat(num)) && isFinite(num);
 
 const startGame = () => {
   const randomNumber = getRandomNumber();
@@ -28,13 +24,12 @@ const startGame = () => {
       } else if (numUser < randomNumber) {
         alert('Загаданное число больше');
         game();
+      } else if (numUser === randomNumber) {
+        confirm('Поздравляю, Вы угадали!!!');
+        startGame();
       } else {
-        if (confirm('Поздравляю, Вы угадали!!!')) {
-          startGame();
-        } else {
-          alert('Игра окончена');
-          return;
-        }
+        alert('Игра окончена');
+        return;
       }
     } else {
       alert('Введи число!');
@@ -69,15 +64,16 @@ const startGame = () => {
       if (numUser > randomNumber) {
         alert('Загаданное число меньше');
         game();
-      } else if (numUser < randomNumber) {
+      }
+
+      if (numUser < randomNumber) {
         alert('Загаданное число больше');
         game();
-      } else if (numUser === randomNumber) {
+      }
+
+      if (numUser === randomNumber) {
         confirm('Поздравляю, Вы угадали!!!');
         startGame();
-      } else {
-        alert('Игра окончена');
-        return;
       }
     } else {
       alert('Введи число!');
