@@ -73,15 +73,8 @@
           result.finalResult;
           return;
         }
-      }
-
-      if (
-        (playerProgress === FIGURES_RUS[1] && computerProgress === FIGURES_RUS[0]) ||
-        (playerProgress === FIGURES_RUS[0] && computerProgress === FIGURES_RUS[2]) ||
-        (playerProgress === FIGURES_RUS[2] && computerProgress === FIGURES_RUS[1])
-      ) {
-        alert(`Вы проиграли! \n Вы: ${playerProgress} \n Компьютер: ${computerProgress}`);
-        result.computer++;
+      } else if (playerProgress === computerProgress) {
+        alert(`Ничья... Победила дружба! \n Вы: ${playerProgress} \n Компьютер: ${computerProgress}`);
 
         const offer = confirm('Хотите ещё раз попробовать?');
 
@@ -91,10 +84,9 @@
           result.finalResult;
           return;
         }
-      }
-
-      if (playerProgress === computerProgress) {
-        alert(`Ничья... Победила дружба! \n Вы: ${playerProgress} \n Компьютер: ${computerProgress}`);
+      } else {
+        alert(`Вы проиграли! \n Вы: ${playerProgress} \n Компьютер: ${computerProgress}`);
+        result.computer++;
 
         const offer = confirm('Хотите ещё раз попробовать?');
 
