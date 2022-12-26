@@ -12,39 +12,95 @@
     const balloons = {
       player: 5,
       computer: 5,
+      computerWon: 'Победил компьютер',
+      playerWon: 'Вы победили',
 
       get finalResult() {
-        alert(`Количество шариков\n\nИгрок: ${this.player}\nБот: ${this.computer}`);
+        alert(`Количество шариков\n\nИгрок: ${this.player}\nКомпьютер: ${this.computer}`);
       },
     };
 
     return function start() {
-      const playerMove = () => {
-        const randomNumber = getRandomIntInclusive(0, 1);
-        const computerEven = randomNumber === 0;
+      let computerProgress = getRandomIntInclusive(1, balloons.computer);
+      const playerProgress = +prompt(`На сколько шариков хотите сыграть? \nСейчас у вас ${balloons.player} шариков.`);
 
-        const playerProgress = +prompt(`На сколько шариков хотите сыграть?\nСейчас у вас ${balloons.player} шариков.`);
+      if (isNaN(playerProgress)) {
+        alert('Введите пожалуйста число!');
 
-        if (playerProgress < 1 || playerProgress > balloons.player) {
-          alert(
-            `Вы не можете ввести ноль или число больше вашего количества шариков! Сейчас у вас ${balloons.player} шариков.`,
-          );
+        return start();
+      }
 
-          return playerMove();
-        }
+      if (playerProgress === 0) {
+        const ask = confirm('Хотите закончить игру?');
 
-        if ((playerProgress % 2 === 0 && computerEven) || (playerProgress % 2 !== 0 && !computerEven)) {
-          balloons.player -= playerProgress;
-          balloons.computer += playerProgress;
-          alert('Компьютер угадал!');
+        if (ask === true) {
+          alert('Удачи!');
+          return;
         } else {
-          balloons.player += playerProgress;
-          balloons.computer -= playerProgress;
-          alert('Компьютер не угадал!');
+          return start();
         }
-      };
+      }
+
+      if (playerProgress < 1 || playerProgress > balloons.player) {
+        alert(
+          `Вы не можете ввести ноль или число больше вашего количества шариков! Сейчас у вас ${balloons.player} шариков.`,
+        );
+
+        return start();
+      }
+
+      if (playerProgress > balloons.computer) {
+        alert('У компьютера нет такого количества шариков, введите другое число...');
+
+        return start();
+      }
+
+      if (
+        (playerProgress % 2 === 0 && computerProgress === 0) ||
+        (playerProgress % 2 !== 0 && computerProgress === 1)
+      ) {
+        balloons.player -= playerProgress;
+        balloons.computer += playerProgress;
+
+        if (computerProgress === 0) {
+          computerProgress = 'Чётное число';
+        } else {
+          computerProgress = 'Нечётное число';
+        }
+
+        alert(`Вы загадали: ${playerProgress}\nКомпьютер загадал: ${computerProgress}\n\n${balloons.computerWon}`);
+
+        balloons.finalResult;
+
+        if (balloons.computer === 10) {
+          alert('Выиграл компьютер!');
+
+          return;
+        }
+      } else {
+        balloons.computer -= playerProgress;
+        balloons.player += playerProgress;
+
+        if (computerProgress === 0) {
+          computerProgress = 'Чётное число';
+        } else {
+          computerProgress = 'Нечётное число';
+        }
+
+        alert(`Вы загадали: ${playerProgress}\nКомпьютер загадал: ${computerProgress}\n\n${balloons.playerWon}`);
+
+        balloons.finalResult;
+
+        if (balloons.player === 10) {
+          alert('Вы выиграли!');
+
+          return;
+        }
+      }
+
+      return start();
     };
   };
 
-  window.MRL = game();
+  window.MRL = game;
 })();
